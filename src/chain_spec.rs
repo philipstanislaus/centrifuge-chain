@@ -227,6 +227,7 @@ pub fn testnet_genesis(
 fn get_default_properties(token: &str) -> sc_service::Properties {
     let data = format!("\
 		{{
+			\"ss58Format\": 36,\
 			\"tokenDecimals\": 18,\
 			\"tokenSymbol\": \"{}\"\
 		}}", token);
