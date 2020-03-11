@@ -295,7 +295,7 @@ const REWARD_CURVE: PiecewiseLinear<'static> = PiecewiseLinear {
 };
 
 parameter_types! {
-	pub const SessionsPerEra: sp_staking::SessionIndex = 4; // 1 day
+	pub const SessionsPerEra: sp_staking::SessionIndex = 2; // 1 day
 	pub const BondingDuration: pallet_staking::EraIndex = 7; // 7 days
 	pub const SlashDeferDuration: pallet_staking::EraIndex = 7; // 7 days, same as bonding duration
 	pub const RewardCurve: &'static PiecewiseLinear<'static> = &REWARD_CURVE;
