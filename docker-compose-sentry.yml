@@ -93,7 +93,7 @@ services:
     # volumes:
     #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
     networks:
-      - internet
+      - network-b
     command:
       - centrifuge-chain
       # Local node id: QmSVnNf9HwVMT1Y4cK1P6aoJcEZjmoTXpjKBmAABLMnZEk
@@ -102,10 +102,44 @@ services:
       - "--chain=local"
       - "--validator"
       - "--bob"
+      - "--sentry-nodes"
+      - "/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
+      - "--reserved-nodes"
+      - "/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
+      # Not only bind to localhost.
+      - "--unsafe-ws-external"
+      - "--unsafe-rpc-external"
+      # - "--log"
+      # - "sub-libp2p=trace"
+      # - "--log"
+      # - "afg=trace"
+      # - "--log"
+      # - "sub-authority-discovery=trace"
+      - "--no-telemetry"
+      - "--rpc-cors=all"
+
+  sentry-b:
+    image: centrifugeio/centrifuge-chain:sentry-bug
+    ports:
+      - "9947:9944"
+    # volumes:
+    #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
+    networks:
+      - network-b
+      - internet
+    command:
+      - centrifuge-chain
+      # Local node id: QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi # TODO replace
+      - "--node-key"
+      - "0000000000000000000000000000000000000000000000000000000000000004"
+      - "--chain=local"
+      - "--dave"
       - "--bootnodes"
       - "/dns4/validator-a/tcp/30333/p2p/QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR"
       - "--bootnodes"
-      - "/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
+      - "/dns4/validator-b/tcp/30333/p2p/QmSVnNf9HwVMT1Y4cK1P6aoJcEZjmoTXpjKBmAABLMnZEk"
+      - "--reserved-nodes"
+      - "/dns4/validator-b/tcp/30333/p2p/QmSVnNf9HwVMT1Y4cK1P6aoJcEZjmoTXpjKBmAABLMnZEk"
       - "--no-telemetry"
       - "--rpc-cors=all"
       # Not only bind to localhost.
@@ -113,6 +147,7 @@ services:
       - "--unsafe-rpc-external"
       # - "--log"
       # - "sub-authority-discovery=trace"
+      - "--sentry"
 
   # ui:
   #   image: polkadot-js/apps
@@ -121,4 +156,5 @@ services:
 
 networks:
   network-a:
+  network-b:
   internet:
