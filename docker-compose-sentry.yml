@@ -133,11 +133,11 @@ services:
       - internet
     command:
       - centrifuge-chain
-      # Local node id: QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH # TODO replace
+      # Local node id: QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH
       - "--node-key"
       - "0000000000000000000000000000000000000000000000000000000000000004"
       - "--chain=local"
-      - "--name=dave-sentry"
+      - "--name=bob-sentry"
       - "--bootnodes"
       - "/dns4/validator-a/tcp/30333/p2p/QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR"
       # - "--bootnodes"
