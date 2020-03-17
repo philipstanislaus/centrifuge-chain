@@ -26,7 +26,8 @@ services:
   validator-a:
     ports:
       - "9944:9944"
-    # volumes:
+    volumes:
+      - ./res/local.json:/res/local.json
     #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
     image: centrifugeio/centrifuge-chain:sentry-bug
     networks:
@@ -36,18 +37,19 @@ services:
       # Local node id: QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR
       - "--node-key"
       - "0000000000000000000000000000000000000000000000000000000000000001"
-      - "--chain=local"
+      - "--chain=/res/local.json"
+      - "--execution=Native"
       - "--validator"
       - "--alice"
-      - "--listen-addr=/dns4/sentry-a/tcp/30333"
+      - "--listen-addr=/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
       - "--reserved-only"
       - "--sentry-nodes"
       - "/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
       - "--reserved-nodes"
       - "/dns4/sentry-a/tcp/30333/p2p/QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi"
       # Not only bind to localhost.
-      # - "--unsafe-ws-external"
-      # - "--unsafe-rpc-external"
+      - "--unsafe-ws-external"
+      - "--unsafe-rpc-external"
       # - "--log"
       # - "sub-libp2p=trace"
       # - "--log"
@@ -55,13 +57,14 @@ services:
       - "--log"
       - "sub-authority-discovery=trace"
       - "--no-telemetry"
-      # - "--rpc-cors=all"
+      - "--rpc-cors=all"
 
   sentry-a:
     image: centrifugeio/centrifuge-chain:sentry-bug
     ports:
       - "9946:9944"
-    # volumes:
+    volumes:
+      - ./res/local.json:/res/local.json
     #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
     networks:
       - network-a
@@ -71,7 +74,8 @@ services:
       # Local node id: QmV7EhW6J6KgmNdr558RH1mPx2xGGznW7At4BhXzntRFsi
       - "--node-key"
       - "0000000000000000000000000000000000000000000000000000000000000003"
-      - "--chain=local"
+      - "--chain=/res/local.json"
+      - "--execution=Wasm"
       - "--name=alice-sentry"
       # - "--bootnodes"
       # - "/dns4/validator-a/tcp/30333/p2p/QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR"
@@ -80,10 +84,10 @@ services:
       - "--reserved-nodes"
       - "/dns4/validator-a/tcp/30333/p2p/QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR"
       - "--no-telemetry"
-      # - "--rpc-cors=all"
+      - "--rpc-cors=all"
       # Not only bind to localhost.
-      # - "--unsafe-ws-external"
-      # - "--unsafe-rpc-external"
+      - "--unsafe-ws-external"
+      - "--unsafe-rpc-external"
       - "--log"
       - "sub-authority-discovery=trace"
       - "--sentry"
@@ -91,7 +95,8 @@ services:
   validator-b:
     ports:
       - "9945:9944"
-    # volumes:
+    volumes:
+      - ./res/local.json:/res/local.json
     #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
     image: centrifugeio/centrifuge-chain:sentry-bug
     networks:
@@ -101,18 +106,19 @@ services:
       # Local node id: QmSVnNf9HwVMT1Y4cK1P6aoJcEZjmoTXpjKBmAABLMnZEk
       - "--node-key"
       - "0000000000000000000000000000000000000000000000000000000000000002"
-      - "--chain=local"
+      - "--chain=/res/local.json"
+      - "--execution=Native"
       - "--validator"
       - "--bob"
-      - "--listen-addr=/dns4/sentry-b/tcp/30333"
+      - "--listen-addr=/dns4/sentry-b/tcp/30333/p2p/QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH"
       - "--reserved-only"
       - "--sentry-nodes"
       - "/dns4/sentry-b/tcp/30333/p2p/QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH"
       - "--reserved-nodes"
       - "/dns4/sentry-b/tcp/30333/p2p/QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH"
       # Not only bind to localhost.
-      # - "--unsafe-ws-external"
-      # - "--unsafe-rpc-external"
+      - "--unsafe-ws-external"
+      - "--unsafe-rpc-external"
       # - "--log"
       # - "sub-libp2p=trace"
       # - "--log"
@@ -120,13 +126,14 @@ services:
       - "--log"
       - "sub-authority-discovery=trace"
       - "--no-telemetry"
-      # - "--rpc-cors=all"
+      - "--rpc-cors=all"
 
   sentry-b:
     image: centrifugeio/centrifuge-chain:sentry-bug
     ports:
       - "9947:9944"
-    # volumes:
+    volumes:
+      - ./res/local.json:/res/local.json
     #   - ./target/release/centrifuge-chain:/usr/local/bin/centrifuge-chain
     networks:
       - network-b
@@ -136,7 +143,8 @@ services:
       # Local node id: QmZT1VPZwqWx3J7kPUgfMvuQtDJpPsC5pjpH1EcZycXYwH
       - "--node-key"
       - "0000000000000000000000000000000000000000000000000000000000000004"
-      - "--chain=local"
+      - "--chain=/res/local.json"
+      - "--execution=Wasm"
       - "--name=bob-sentry"
       - "--bootnodes"
       - "/dns4/validator-a/tcp/30333/p2p/QmRpheLN4JWdAnY7HGJfWFNbfkQCb6tFf4vvA6hgjMZKrR"
@@ -145,10 +153,10 @@ services:
       - "--reserved-nodes"
       - "/dns4/validator-b/tcp/30333/p2p/QmSVnNf9HwVMT1Y4cK1P6aoJcEZjmoTXpjKBmAABLMnZEk"
       - "--no-telemetry"
-      # - "--rpc-cors=all"
+      - "--rpc-cors=all"
       # Not only bind to localhost.
-      # - "--unsafe-ws-external"
-      # - "--unsafe-rpc-external"
+      - "--unsafe-ws-external"
+      - "--unsafe-rpc-external"
       - "--log"
       - "sub-authority-discovery=trace"
       - "--sentry"
